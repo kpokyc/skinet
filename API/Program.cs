@@ -1,5 +1,6 @@
 
 using Core.Interfaces;
+using Core.Interfaceses;
 using Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 
@@ -9,9 +10,10 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<StoreContext>(x =>
     x.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-
 // Add services to the container.
 builder.Services.AddScoped<IProductRepository, ProductRepository>();
+// KKK Add IGenericRepository to a service container
+builder.Services.AddScoped(typeof(IGenericRepository<>), (typeof(GenericRepository<>)));
 builder.Services.AddControllers();
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
